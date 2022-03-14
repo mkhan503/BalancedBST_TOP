@@ -20,29 +20,3 @@ p tree.balanced?
 p tree.delete(125)
 p tree.find(120)
 p tree.height
-
-
-
-=begin 
-node = Node.new(10)
-
-
-tree.insert2(node)
-
-p tree
-
-
- if target.left_child.nil? 
-        data = target.right_child.data
-        delete(data)
-        target.data = data
-      else
-        target = target.left_child
-        target.left_child = nil
-      end
-=end
-
-
- 
-
-
