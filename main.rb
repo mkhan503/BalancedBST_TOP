@@ -1,22 +1,31 @@
 require_relative 'lib/environment.rb'
 
-p tree = Tree.new(Array.new(5) { rand(1..100) })
-p tree.balanced?
-p tree.postorder
-p tree.inorder
-p tree.preorder
-p tree.level_order_recursion
-p tree.level_order_iteration
+tree = Tree.new((Array.new(15) { rand(1..100) }))
+tree.pretty_print
 
-tree.insert(Node.new(105))
-tree.insert(Node.new(110))
-tree.insert(Node.new(115))
-tree.insert(Node.new(120))
-tree.insert(Node.new(125))
-p tree.balanced?
-tree = tree.rebalance
-p tree.balanced?
+puts "Balanced? #{tree.balanced?}"
+puts "Level order traversal: #{tree.level_order_iteration}"
+puts "Pre order traversal: #{tree.preorder}"
+puts "In order traversal: #{tree.inorder}"
+puts "Post order traversal: #{tree.postorder}"
+puts 'Inserting nodes to unbalance tree'
 
-p tree.delete(125)
-p tree.find(120)
-p tree.height
+tree.insert(110)
+tree.insert(115)
+tree.insert(120)
+tree.insert(125)
+tree.insert(130)
+tree.insert(135)
+tree.pretty_print
+puts "Balanced? #{tree.balanced?}"
+puts"Rebalancing..."
+
+tree.rebalance
+tree.pretty_print
+puts "Balanced? #{tree.balanced?}"
+puts "Level order traversal: #{tree.level_order_iteration}"
+puts "Pre order traversal: #{tree.preorder}"
+puts "In order traversal: #{tree.inorder}"
+puts "Post order traversal: #{tree.postorder}"
+
+

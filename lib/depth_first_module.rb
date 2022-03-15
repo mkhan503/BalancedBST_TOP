@@ -8,7 +8,11 @@ module DepthFirst
     array = []
     array << inorder(current.left_child) << current << inorder(current.right_child)
     array = array.compact.flatten
-    block_conditions(array, current)
+    if block_given?
+      array.each { |node| yield node }
+    else
+      block_conditions(array, current)
+    end
   end
 
   def postorder(current = @root)
@@ -18,7 +22,11 @@ module DepthFirst
     array = []
     array << postorder(current.left_child) << postorder(current.right_child) << current
     array = array.compact.flatten
-    block_conditions(array, current)
+    if block_given?
+      array.each { |node| yield node }
+    else
+      block_conditions(array, current)
+    end
   end
 
   def preorder(current = @root)
@@ -31,13 +39,15 @@ module DepthFirst
     array = []
     array << root << left << right
     array = array.compact.flatten
-    block_conditions(array, current)
+    if block_given?
+      array.each { |node| yield node }
+    else
+      block_conditions(array, current)
+    end
   end
 
   def block_conditions(array, current)
-    if block_given?
-      array.each { |node| yield node }
-    elsif !block_given? && current == @root
+    if current == @root
       default_array = []
       array.each { |node| default_array << node.data }
       default_array

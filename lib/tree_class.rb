@@ -20,13 +20,13 @@ class Tree
     Node.new(root, left_child, right_child)
   end
 
-  def insert(node, current = @root)
-    return node if current.nil?
+  def insert(value, current = @root)
+    return Node.new(value) if current.nil?
 
-    if current.data > node.data
-      current.left_child = insert(node, current.left_child)
+    if current.data > value
+      current.left_child = insert(value, current.left_child)
     else
-      current.right_child = insert(node, current.right_child)
+      current.right_child = insert(value, current.right_child)
     end
     current
   end
@@ -57,8 +57,8 @@ class Tree
 
   def two_children(target)
     inorder_array = inorder(target)
-    successor = inorder_array[inorder_array.index(target.data) + 1]
-    delete(successor)
+    successor = inorder_array[inorder_array.index(target) + 1]
+    successor = nil
     target.data = successor
   end
 
@@ -100,6 +100,7 @@ class Tree
   end
 
   def height(node = @root, node_height = 0)
+    node = find(node.data) if node_height == 0 
     return nil if node.nil?
     return node_height if node.left_child.nil? && node.right_child.nil?
 
@@ -129,6 +130,12 @@ class Tree
 
   def rebalance
     array = inorder
-    Tree.new(array)
+    @root = build_tree(array)
+  end
+
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
   end
 end
